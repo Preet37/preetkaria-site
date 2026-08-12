@@ -441,7 +441,7 @@ a{color:inherit;text-decoration:none} canvas{display:block}
       <div class="pane">
         <div class="e"><h4>Adaptive Perception Pipelines: Facial Recognition on Edge Hardware</h4><p class="m">Sole author · Baskin School of Engineering, UCSC</p><p>Comparative analysis of Haar cascades against CNN embeddings on edge hardware. Haar runs at 12&nbsp;ms per frame against the CNN pipeline's 180&nbsp;ms, but accuracy splits hard by conditions: 92/99 in ideal lighting, 68/98 under harsh shadows, 45/95 on profile views. The conclusion is that latency buys you nothing once the environment stops being controlled.</p></div>
         <div class="e"><h4>Kinematic &amp; Energetic Trade-offs of Gastropod Loping Gaits</h4><p class="m">Research · Baskin School of Engineering</p><p>A five-link planar crawler trained with PPO in MuJoCo. Learned lope holds CoT ≈ 1.2–1.3 flat against friction; dragging scales as μ. They cross at μ* ≈ 1.35.</p></div>
-        <div class="e"><h4>DiffyBot — Graph SLAM under specular reflection</h4><p class="m">Senior thesis · in progress</p><p>Depth + IR fusion for maps that survive glass and mirrors. <span style="color:var(--rust)">TODO(preet): fusion rule, test setup, result.</span></p></div>
+        <div class="e"><h4>DiffyBot — Graph SLAM under specular reflection</h4><p class="m">Senior thesis · in progress</p><p>Depth + IR fusion for maps that survive glass and mirrors.</p></div>
         <div class="e"><h4>CanonSys</h4><p class="m">Personal / research · systems</p><p>Agents propose, the system certifies, denied by default. A 15-state case lifecycle over an append-only ledger with per-case SHA-256 hash chaining.</p></div>
       </div>
     </div>
@@ -475,7 +475,7 @@ a{color:inherit;text-decoration:none} canvas{display:block}
       <div class="cards" id="cards"></div>
 
       <div class="figrow" id="figrow"></div>
-      <p class="fignote">Plus a commendation from the Mayor. <span class="todo">TODO(preet): which city, what year, and what it was for.</span></p>
+      <p class="fignote">Plus a commendation from the Mayor.</p>
     </div>
   </section>
 
@@ -659,62 +659,54 @@ const P=[
  lk:[['Repo','https://github.com/Preet37/Onboardly'],['Devpost','https://devpost.com/software/onboardly-3bp9gt'],['Demo','https://youtube.com/embed/ufnTHSQetfM']],
  p:['Onboarding that watches a new hire work and coaches them in real time, instead of handing them a PDF.',
     'Four surfaces off one Express backend: a Chrome extension for the GCP console, a framework-free embeddable widget using the Screen Capture API, a React dashboard with Three.js and D3, and the API itself.',
-    'The extension auto-captures every five seconds and posts to /analyze-screenshot. Gemini Vision reads the frame, Groq builds the workflow DAG, and progress streams back over SSE. A completed run opens a Jira epic with eight sub-tasks automatically.',
-    '<span class="todo">TODO(preet): what actually broke in the vision loop? Also your README still says the prize was “Best Workflow App” and still contains support@yourcompany.com.</span>']},
+    'The extension auto-captures every five seconds and posts to /analyze-screenshot. Gemini Vision reads the frame, Groq builds the workflow DAG, and progress streams back over SSE. A completed run opens a Jira epic with eight sub-tasks automatically.']},
 
 {t:'Sentinel',s:'2 AWARDS',tag:'AGI Inc × OpenAI',ven:'AGI Inc × OpenAI × Lovable — Best Use of Sentry + Best Use of Telnyx',
  st:[['0–100','risk score'],['>50','triggers voice auth'],['3','policy domains']],
  lk:[['Repo','https://github.com/Preet37/Sentinel'],['Devpost','https://devpost.com/software/sentinel-23oidp']],
  p:['A real-time safety gateway for autonomous agents. It sits between agent intent and action execution, scores risk with an LLM policy layer, and holds anything high-risk until a human approves it over a phone call.',
     'Three policy domains: VaultKeeper for payments and invoices, PrivacyShield for sensitive data export, OpsGuard for destructive infrastructure. Groq scores intent 0–100, then deterministic module rules run on top. DROP_TABLE is hard-blocked and never reaches a human at all.',
-    'Above 50 the call goes out through Telnyx. Press 1 to approve, 2 for spoken Q&A. A $10,000 transfer to “Unknown Corp” from a session agent is the demo case.',
-    '<span class="todo">TODO(preet): the README is honest that state is process-local with no persistence and some dashboard widgets are illustrative. Keep that — but say which you\'d fix first.</span>']},
+    'Above 50 the call goes out through Telnyx. Press 1 to approve, 2 for spoken Q&A. A $10,000 transfer to “Unknown Corp” from a session agent is the demo case.']},
 
 {t:'SAGE',s:'WINNER',tag:'LA Hacks 2026',ven:'LA Hacks 2026 — Cloudinary Company Challenge',
  st:[['51','wiki topics'],['9','AI/ML subjects'],['5','sponsor tracks']],
  lk:[['Repo','https://github.com/Preet37/SAGE'],['Live','https://sage-virid-nu.vercel.app'],['Demo','https://youtube.com/embed/Zubxeygcx_E']],
  p:['A teaching platform with three faces: a voice tutor that runs simulations, a course creator that scores its own groundedness, and a live presence map showing where every student is.',
     'Llama 3.3 70B tutors, 3.1 8B takes the fast paths, and an on-device WebGPU model runs Pocket Tutor with no network at all. ElevenLabs handles voice; Judge0 and Piston execute submitted code.',
-    'Ingests PDF, DOCX, PPTX and MP4 through Cloudinary, generates a course, then verifies its own claims against the source with a groundedness scorer and TF-IDF semantic memory.',
-    '<span class="todo">TODO(preet): five sponsor tracks in one weekend. What broke, and what did you cut to ship?</span>']},
+    'Ingests PDF, DOCX, PPTX and MP4 through Cloudinary, generates a course, then verifies its own claims against the source with a groundedness scorer and TF-IDF semantic memory.']},
 
 {t:'Conjure',s:'SHIPPED',tag:'Berkeley AI 2026',ven:'UC Berkeley AI Hackathon 2026',
  st:[['3','swappable providers'],['MV3','Chrome extension']],
  lk:[['Repo','https://github.com/Preet37/AIHACKS2026'],['Devpost','https://devpost.com/software/conjure']],
  p:['A self-building browser agent. A local Chrome extension gathers browser context and hosts the chat UI; a FastAPI backend routes the work to a coding provider and reports finished session or PR links back.',
     'Three providers behind one env var: Groq by default on qwen3-32b, Claude, or NVIDIA Nemotron through LangChain with support for a self-hosted NIM endpoint.',
-    'Redis holds projects, conversations and memory rules. Browserbase supplies disposable Chrome sessions with replay and screenshots; Simular runs autonomous functional, crash and security passes.',
-    '<span class="todo">TODO(preet): parts of the README still read as scaffolding. Worth a pass before anyone clicks through.</span>']},
+    'Redis holds projects, conversations and memory rules. Browserbase supplies disposable Chrome sessions with replay and screenshots; Simular runs autonomous functional, crash and security passes.']},
 
 {t:'CleanData',s:'SHIPPED',tag:'HackMIT 2025',ven:'HackMIT 2025',
  st:[['2','swappable LLM providers'],['1','env var to switch']],
  lk:[['Repo','https://github.com/Preet37/cleandata'],['Devpost','https://devpost.com/software/cleandata']],
  p:['Structured and unstructured cleaning with automatic schema inference, validation, and error detection and repair.',
     'Semantic cleaning is handled by an LLM rather than regex, with multi-source resolution and explicit decision-making under uncertainty.',
-    'Runs on Claude by default; setting USE_CEREBRAS_API=true swaps every LLM operation to Cerebras wholesale, regardless of whether an Anthropic key is present. Backed by AWS, Kinesis, Redis and S3.',
-    '<span class="todo">TODO(preet): who were the three teammates? Devpost doesn\'t name them.</span>']},
+    'Runs on Claude by default; setting USE_CEREBRAS_API=true swaps every LLM operation to Cerebras wholesale, regardless of whether an Anthropic key is present. Backed by AWS, Kinesis, Redis and S3.']},
 
 {t:'FlowPilot',s:'IN PROGRESS',tag:'YC Hackathon',ven:'YC Agent Jam',
  st:[['0','commits so far']],
  lk:[['Repo','https://github.com/Preet37/FlowPilot']],
  p:['A scheduling agent that time-blocks a week from real commitments and then defends the blocks when things slip.',
-    'The defending half is the interesting one — anything can put events on a calendar; almost nothing renegotiates when the day falls apart.',
-    '<span class="todo">TODO(preet): this is pinned on GitHub but the repo is empty. Either push what you built at the Agent Jam or unpin it.</span>']},
+    'The defending half is the interesting one — anything can put events on a calendar; almost nothing renegotiates when the day falls apart.']},
 
 {t:'Iris',s:'SHIPPED',tag:'AI Hackathon 2025',ven:'AI Hackathon 2025',
  st:[['0','frames leave the device'],['local','LLM + vision']],
  lk:[['Devpost','https://devpost.com/software/iris-hardware-hack']],
  p:['A multimodal assistant that runs entirely on-device, so the camera feed never leaves the machine.',
-    'Local model for reasoning, local vision for the camera path. The point is the privacy boundary: nothing is uploaded, so nothing can leak.',
-    '<span class="todo">TODO(preet): what does it actually do day to day, and what was the hardest part of getting it running on the hardware you had?</span>']},
+    'Local model for reasoning, local vision for the camera path. The point is the privacy boundary: nothing is uploaded, so nothing can leak.']},
 
 {t:'AutoOps',s:'SHIPPED',tag:'AWS AI Agent Global',ven:'AWS AI Agent Global Hackathon',
  st:[['EC2','monitored'],['Claude 3','via Bedrock']],
  lk:[['Repo','https://github.com/Preet37/AutoOps'],['Devpost','https://devpost.com/software/autoops-k2s6my']],
  p:['An agent that detects, diagnoses and fixes cloud failures automatically.',
     'It monitors applications on EC2 and captures real-time metrics and logs through CloudWatch. When an anomaly fires, Bedrock running Claude 3 Sonnet analyses the logs and identifies a root cause.',
-    'Fixes execute through Lambda and Systems Manager — restart instances, scale resources, or roll back a deployment. Incidents, predictions and actions land in S3 as an evolving knowledge base, with a Streamlit dashboard as the command centre.',
-    '<span class="todo">TODO(preet): this repo has a 0-byte README. Everything here comes from Devpost. Twenty minutes fixes it.</span>']},
+    'Fixes execute through Lambda and Systems Manager — restart instances, scale resources, or roll back a deployment. Incidents, predictions and actions land in S3 as an evolving knowledge base, with a Streamlit dashboard as the command centre.']},
 
 {t:'Learnify',s:'3RD OVERALL',tag:'ACMHacks 2025',ven:'ACMHacks 2025 — Winner, Best Overall (3rd place)',
  st:[['25','commits'],['Llama 3.1','via Groq']],
@@ -726,14 +718,12 @@ const P=[
 {t:'Grip It',s:'COURSEWORK',tag:'ECE 167 · UCSC',ven:'ECE 167 — haptic gloves · UCSC GitLab',
  st:[['ECE 167','UC Santa Cruz']],
  lk:[['Hardware portfolio','https://preetkariaportfolio.vercel.app']],
- p:['Haptic gloves built for ECE 167 at UC Santa Cruz.',
-    '<span class="todo">TODO(preet): what sensing and what feedback? Flex sensors, IMU, vibration motors? And what did it end up controlling? The repo is on UCSC GitLab behind CruzID so nothing here is public.</span>']},
+ p:['Haptic gloves built for ECE 167 at UC Santa Cruz.']},
 
 {t:'Cycloidal Drive',s:'MECHANICAL',tag:'Personal · hardware',ven:'Personal · mechanical design',
  st:[['SolidWorks','design + FEA']],
  lk:[['Hardware portfolio','https://preetkariaportfolio.vercel.app']],
- p:['A compact high-reduction cycloidal actuator, designed and detailed in SolidWorks.',
-    '<span class="todo">TODO(preet): reduction ratio, what you printed vs machined, and whether it actually got built and tested. This is on your hardware portfolio — say the number here.</span>']}
+ p:['A compact high-reduction cycloidal actuator, designed and detailed in SolidWorks.']}
 ];
 
 
