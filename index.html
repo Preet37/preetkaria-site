@@ -52,7 +52,16 @@ a{color:inherit;text-decoration:none} canvas{display:block}
 .say a{border-bottom:1px solid var(--rust);color:var(--cream)}
 .say b{font-weight:600}
 @media(max-width:1080px){.hdr{grid-template-columns:auto 1fr auto auto}.say{display:none}}
-@media(max-width:760px){.hdr{grid-template-columns:auto 1fr auto}.tel{display:none}.tabs{gap:14px}}
+@media(max-width:760px){.hdr{grid-template-columns:auto 1fr auto}.tel{display:none}
+  .tabs{gap:0}
+  .tabs a{font-size:10px;letter-spacing:.8px;padding:12px 9px}
+  .tabs a::after{left:9px;right:9px}
+  .soc{gap:2px}.soc a{padding:8px 6px}}
+@media(max-width:470px){
+  /* the header can't hold links and icons at once; Contact has every link */
+  .hdr .soc{display:none}
+  .tabs a{font-size:11px;padding:13px 12px}
+}
 
 #open{height:250vh;position:relative;z-index:1}
 #open .ostick{position:sticky;top:0;height:100vh}
@@ -65,7 +74,7 @@ a{color:inherit;text-decoration:none} canvas{display:block}
 
 /* ══ FIELD — one point system that morphs across the page ═════════ */
 #pcv{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.92}
-.hdr,.hero,main,footer{position:relative;z-index:1}
+main,footer{position:relative;z-index:1}
 
 /* ══ HERO ═════════════════════════════════════════════════════════ */
 .px{padding-inline:var(--pad)}
@@ -197,6 +206,24 @@ a{color:inherit;text-decoration:none} canvas{display:block}
 .drop .mailto{font-family:var(--serif);font-size:clamp(20px,2.2vw,30px);color:var(--cream);
   border-bottom:1px solid var(--line);transition:border-color .3s var(--ease)}
 .drop .mailto:hover{border-color:var(--rust)}
+
+/* ══ SMALL SCREENS ═══════════════════════════════════════════════ */
+@media(max-width:760px){
+  .tl,.awd,.drop{padding-right:18px}
+  .tl ol{padding-left:26px}
+  .tl li::before{left:-26px}
+  .figrow{grid-template-columns:1fr 1fr}
+  .figrow div{padding:16px 12px}
+  .figrow b{font-size:clamp(24px,8vw,34px)}
+  .figrow span{font-size:8px;letter-spacing:.9px}
+  .wall .ln{font-size:min(120px,26vw)}
+  .stack{height:clamp(280px,64vw,360px)}
+  .pol{width:min(88%,320px)}
+  .polside{max-width:none}
+  .scue{bottom:5vh}
+  .awd{padding-right:14px}
+  .awd .f{text-align:left}
+}
 
 /* ══ SCROLL CUE — three chevrons and a word ═══════════════════════ */
 .scue{position:absolute;left:50%;bottom:10vh;translate:-50% 0;z-index:6;
@@ -586,14 +613,14 @@ a{color:inherit;text-decoration:none} canvas{display:block}
       <ol>
         <li><span class="when">Jan 2026 &rarr; now</span>
             <span class="what"><b>Founder &amp; Director</b>, hack.dev</span>
-            <span class="note">Running hackathons across UC Santa Cruz</span></li>
+            <span class="note">Ran Hack-a-Claw with NVIDIA &amp; ASUS &mdash; 200 builders, 24 hours, $11k in prizes</span></li>
         <li><span class="when">Sep 2024 &rarr; now</span>
             <span class="what"><b>Undergraduate Researcher</b>, Autonomous Systems Lab</span>
             <span class="note">Graph SLAM under specular reflection &mdash; senior thesis</span></li>
         <li><span class="when">2024 &rarr; now</span>
             <span class="what"><b>Perception &amp; Ergonomics</b>, Formula Slug</span>
             <span class="note">Depth estimation toward autonomous cone detection &middot; FSAE Electric</span></li>
-        <li><span class="when">2024 &rarr; 2027</span>
+        <li><span class="when">2024 &rarr; Dec 2026</span>
             <span class="what"><b>B.S. Robotics &amp; Computer Engineering</b>, UC Santa Cruz</span>
             <span class="note">Baskin School of Engineering</span></li>
       </ol>
@@ -782,7 +809,7 @@ addEventListener('resize',()=>{for(const f of BUS)f(scrollY,innerHeight)});
 
 /* ── PROJECTS ───────────────────────────────────────────────────── */
 const P=[
-{t:'Loomin',im:'loomin',s:'NVIDIA GTC — WINNER',tag:'NVIDIA GTC',ven:'NVIDIA GTC — winner · built at CruzHacks 2026',
+{t:'Loomin',im:'loomin',s:'NVIDIA GTC — WINNER',tag:'NVIDIA GTC',ven:'NVIDIA GTC 2026 Agents for Impact — 1st of ~300 · solo build',
  st:[['<3s','prompt → simulation'],['1','external API call'],['10','simulation types'],['48','commits']],
  lk:[['Repo','https://github.com/Preet37/LoominPhysicsSandbox'],['Devpost','https://devpost.com/software/loomin']],
  p:['Type any physics topic and get an interactive 3D simulation you can physically break.',
@@ -901,7 +928,7 @@ const P=[
   pols.forEach((el,k)=>{
     let d=k-cur; if(d>N/2)d-=N; if(d<-N/2)d+=N;      // signed distance, wrapped
     const ad=Math.abs(d);
-    el.style.setProperty('--x',(d*118)+'%');
+    el.style.setProperty('--x',(ad<=1?d*118:0)+'%');
     el.style.setProperty('--r',(-6+d*15)+'deg');
     el.style.setProperty('--s',(d===0?1:.88).toFixed(3));
     el.style.setProperty('--o',d===0?'1':'0');
