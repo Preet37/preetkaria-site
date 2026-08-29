@@ -220,7 +220,7 @@ a{color:inherit;text-decoration:none} canvas{display:block}
   gap:clamp(20px,4vw,64px);align-items:center;
   padding:0 clamp(18px,4vw,56px)}
 @media(max-width:900px){.pola{grid-template-columns:1fr;gap:24px}}
-.stack{position:relative;height:clamp(360px,44vw,520px)}
+.stack{position:relative;width:100%;height:clamp(360px,44vw,520px)}
 .stack{overflow:visible}
 .pol{position:absolute;left:50%;top:50%;width:min(80%,370px);height:fit-content;
   background:#fff;padding:14px 14px 0;border-radius:2px;
@@ -259,7 +259,8 @@ a{color:inherit;text-decoration:none} canvas{display:block}
 .polside .body.open .hint::after{content:' \2014 click again to close'}
 
 /* the polaroid's own affordance: racing-line chevrons */
-.polcue{display:flex;align-items:center;gap:7px;margin-top:20px;color:rgba(10,9,16,.5)}
+.stackcol{display:grid;justify-items:stretch}
+.polcue{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:22px;color:rgba(10,9,16,.5)}
 .polcue i{width:9px;height:9px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;
   rotate:-45deg;opacity:.3;animation:chev 1.7s ease-in-out infinite}
 .polcue i:nth-child(2){animation-delay:.15s}
@@ -372,9 +373,9 @@ a{color:inherit;text-decoration:none} canvas{display:block}
 .railhint{display:none}
 
 /* ══ AWARDS ══════════════════════════════════════════════════════ */
-.awd{padding:clamp(28px,4vw,52px) 0 clamp(30px,4vw,56px)}
+.awd{padding:clamp(28px,4vw,52px) clamp(0px,6vw,110px) clamp(30px,4vw,56px) 0}
 .awd ol{list-style:none;display:grid;gap:0}
-.awd li{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2.2fr) auto;gap:28px;
+.awd li{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,2.1fr) 130px;gap:28px;
   align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line);
   transition:padding-left .45s var(--out)}
 .awd li:hover{padding-left:14px}
@@ -383,7 +384,7 @@ a{color:inherit;text-decoration:none} canvas{display:block}
   text-transform:uppercase;color:rgba(245,243,248,.5)}
 .awd .a{font-size:clamp(17px,1.7vw,23px);color:var(--cream);line-height:1.3}
 .awd .f{font-family:var(--mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;
-  color:var(--rust);white-space:nowrap}
+  color:var(--rust);white-space:nowrap;text-align:right}
 .awd li:hover .p{color:rgba(245,243,248,.8)}
 .awdnote{margin-top:22px;font-size:14.5px;color:rgba(245,243,248,.42)}
 @media(max-width:760px){.awd li{grid-template-columns:1fr;gap:5px}}
@@ -624,7 +625,10 @@ a{color:inherit;text-decoration:none} canvas{display:block}
 
       <div class="polawrap" id="polawrap">
         <div class="pola">
-          <div class="stack" id="polstack"></div>
+          <div class="stackcol">
+            <div class="stack" id="polstack"></div>
+            <div class="polcue"><i></i><i></i><i></i><span>Click the polaroid to see more</span></div>
+          </div>
           <div class="polside" id="polside"></div>
         </div>
       </div>
@@ -761,9 +765,9 @@ addEventListener('resize',()=>{for(const f of BUS)f(scrollY,innerHeight)});
 
 /* ── WALLPAPER + PARALLAX ──────────────────────────────────────── */
 (()=>{
- const rows=7,per=14,L='WORK';let h='';
+ const rows=7,per=14,L='PROJECTS';let h='';
  for(let r=0;r<rows;r++){let x='';for(let i=0;i<per;i++)
-   x+=`<span style="transform:rotate(${(Math.sin(r*3+i)*3).toFixed(2)}deg) translateY(${(Math.cos(r+i*2)*5).toFixed(1)}px)">${L[(i+r)%4]}</span>`;
+   x+=`<span style="transform:rotate(${(Math.sin(r*3+i)*3).toFixed(2)}deg) translateY(${(Math.cos(r+i*2)*5).toFixed(1)}px)">${L[(i+r)%L.length]}</span>`;
   h+=`<div class="ln">${x}</div>`}
  const w=$('#wall'); w.innerHTML=h;
  const lns=[...w.children];
@@ -912,7 +916,6 @@ const P=[
    `<div class="body" tabindex="0" role="button"><p class="tease">${tease(p)}</p>`+
    `<div class="full">${p.p.slice(0,2).map(t=>`<p>${wds(t,HI[p.t])}</p>`).join('')}</div>`+
    `<p class="hint">Click to read more</p></div>`+
-   `<div class="polcue"><i></i><i></i><i></i><span>Click the polaroid to see more</span></div>`+
    `<div class="polnav"><span>${String(cur+1).padStart(2,'0')} / ${String(N).padStart(2,'0')}</span>`+
    `<span class="polbar"><i style="--pw:${((cur+1)/N*100).toFixed(1)}%"></i></span>`+
    `<span style="opacity:.55">keep scrolling</span></div>`;
