@@ -375,10 +375,10 @@ main,footer{position:relative;z-index:1}
  text-transform:uppercase;color:rgba(245,243,248,.66)}
 .card .cf .o{color:var(--rust)}
 /* counting stat row */
-.figrow{position:relative;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-left:0;border-right:0}
+.figrow{position:relative;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-left:0;border-right:0}
 .figrow div{border-right:1px solid var(--line);padding:22px 18px}
 .figrow div:last-child{border-right:0}
-.figrow b{display:block;font-family:var(--disp);font-size:clamp(26px,4vw,52px);line-height:1;letter-spacing:-.02em}
+.figrow b{display:block;font-family:var(--disp);font-size:clamp(22px,3vw,40px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .figwrap{padding-bottom:8px}
 .fignote{position:relative;margin:16px 0 0;font-size:14px;color:rgba(245,243,248,.42)}
 .fignote .todo{color:var(--rust)}
@@ -689,7 +689,8 @@ main,footer{position:relative;z-index:1}
     <div class="lab mn"><b>Awards</b><span>05</span></div>
     <div class="awd">
       <ol>
-        <li><span class="p">NVIDIA GTC</span><span class="a">Winner</span><span class="f">Loomin</span></li>
+        <li><span class="p">NVIDIA GTC 2026</span><span class="a">1st of ~300 &mdash; Agents for Impact</span><span class="f">Loomin</span></li>
+        <li><span class="p">GTC Researchers Reception</span><span class="a">Spoke with Jensen Huang about Loomin</span><span class="f"></span></li>
         <li><span class="p">AGI Inc &times; OpenAI &times; Lovable</span><span class="a">Best Use of Sentry &middot; Best Use of Telnyx</span><span class="f">Sentinel</span></li>
         <li><span class="p">Cal Hacks 12.0</span><span class="a">Best Use of Conversion</span><span class="f">Onboardly</span></li>
         <li><span class="p">LA Hacks 2026</span><span class="a">Cloudinary Company Challenge</span><span class="f">SAGE</span></li>
@@ -697,7 +698,7 @@ main,footer{position:relative;z-index:1}
         <li><span class="p">City of Fremont</span><span class="a">Commendation from the Mayor</span><span class="f"></span></li>
         <li><span class="p">FTC Robotics</span><span class="a">Inspire Award</span><span class="f"></span></li>
       </ol>
-      <p class="awdnote">9 hackathon wins across 11 entered.</p>
+      <p class="awdnote">9 hackathon wins across 11 entered. Presented Loomin at the NVIDIA Developer Meetup.</p>
     </div>
   </section>
 
@@ -827,6 +828,7 @@ const P=[
  st:[['<3s','prompt → simulation'],['1','external API call'],['10','simulation types'],['48','commits']],
  lk:[['Repo','https://github.com/Preet37/LoominPhysicsSandbox'],['Devpost','https://devpost.com/software/loomin']],
  p:['Type any physics topic and get an interactive 3D simulation you can physically break.',
+    'Won 1st of roughly 300 builders at NVIDIA GTC 2026 Agents for Impact, solo. Afterwards I got a few minutes with Jensen Huang at the Researchers Reception, asking him questions and hearing what he wanted to know from a student using NVIDIA hardware.',
     'Three agents run the pipeline. Agent 1 does a local RAG lookup against a physics knowledge base. Agent 2 is the only network call — Nemotron Ultra 253B through NVIDIA NIM, streaming Markdown notes and a sim config together. Agent 3 validates structurally and, on violation, resets only the offending parameters rather than the whole scene.',
     'Ten simulation types ship with it: Betz-limit wind turbine, Newton\'s cradle, Tsiolkovsky rocket, robotic arm, projectile, spring-mass, Kepler orbit, bridge loading, hoop stress, plus AI-generated custom geometry. States run OPTIMAL → WARNING → CRITICAL_FAILURE.',
     'Research and Validator are pure TypeScript running locally, which is why the whole thing lands under three seconds on one API call. Smaller models leaked system instructions or invented parameter names; Nemotron Ultra was the first that did it reliably every time.']},
@@ -913,7 +915,7 @@ const P=[
    'Iris — on device','AutoOps @ AWS','Learnify @ ACM','Grip It — ECE 167','cycloidal drive v2'];
  const tease=p=>{const t=p.p[0];return t.length>92?t.slice(0,90).replace(/[ ,.]$/,'')+'…':t};
  let wi=0;
- const HI={Loomin:'the only network call',Sentinel:'hard-blocked and never reaches a human at all',
+ const HI={Loomin:'a few minutes with Jensen Huang',Sentinel:'hard-blocked and never reaches a human at all',
    SAGE:'verifies its own claims against the source',CleanData:'swaps every LLM operation to Cerebras wholesale',
    Learnify:'a malformed response can never crash the path',Conjure:'self-building',
    AutoOps:'detects, diagnoses and fixes cloud failures automatically'};
@@ -1056,13 +1058,13 @@ const ALSO=[
  requestAnimationFrame(reveal);
 
  // counting figures
- const FIG=[[823,'github contributions'],[9,'hackathon wins'],[11,'hackathons entered']];
+ const FIG=[[823,'github contributions'],[9,'hackathon wins'],[396643,'impressions, one post'],[3898,'followers']];
  $('#figrow').innerHTML=FIG.map(f=>`<div><b data-to="${f[0]}">0</b><span>${f[1]}</span></div>`).join('');
  const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co.unobserve(e.target);
-   const to=+e.target.dataset.to,t0=performance.now(),dur=1100;
+   const to=+e.target.dataset.to,t0=performance.now(),dur=1400,fmt=n=>n.toLocaleString('en-US');
    const tick=t=>{const k=Math.min((t-t0)/dur,1),v=Math.round(to*(1-Math.pow(1-k,3)));
-     e.target.textContent=v;if(k<1)requestAnimationFrame(tick)};
-   RM?e.target.textContent=to:requestAnimationFrame(tick);}),{rootMargin:'0px 0px -12% 0px'});
+     e.target.textContent=fmt(v);if(k<1)requestAnimationFrame(tick)};
+   RM?e.target.textContent=fmt(to):requestAnimationFrame(tick);}),{rootMargin:'0px 0px -12% 0px'});
  document.querySelectorAll('#figrow b[data-to]').forEach(b=>co.observe(b));
 
  rail.innerHTML=ALSO.map(a=>{const [nm,im]=a[0].split('|');return `<article tabindex="0">`+
