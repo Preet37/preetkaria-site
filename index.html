@@ -311,8 +311,22 @@ main,footer{position:relative;z-index:1}
 .polbar{flex:1;max-width:200px;height:2px;background:rgba(10,9,16,.14);position:relative}
 .polbar i{position:absolute;inset:0 auto 0 0;background:var(--rust);width:var(--pw,0%);
   transition:width .35s var(--ease)}
-@media(max-width:900px){.pola{height:auto;position:relative;padding-block:40px}
-  .polawrap{height:auto!important}}
+@media(max-width:900px){
+  .pola{grid-template-columns:1fr;gap:10px;align-content:center;padding:0 18px}
+  .stack{height:clamp(190px,34vh,280px)}
+  .pol{width:min(82%,290px);padding:10px 10px 0}
+  .pol .cap{font-size:16px;padding:7px 3px 10px}
+  .polcue{margin-top:12px}
+  .polcue span{font-size:8.5px;letter-spacing:1px}
+  .polside .date{font-size:18px}
+  .polside h3{font-size:clamp(26px,8vw,38px)}
+  .polside .tease,.polside .full p{font-size:15.5px;line-height:1.45}
+  .polside .body{padding:10px 12px;margin:0 -12px}
+  .polside .body.open .full{max-height:32vh;overflow-y:auto}
+  .polside .hint{margin-top:8px}
+  .polnav{margin-top:12px}
+  .wall .ln{color:rgba(10,9,16,.03)}
+}
 
 /* ══ GALLERY ══════════════════════════════════════════════════════ */
 .gal{position:relative;background:var(--cream);color:var(--navy);padding-bottom:clamp(50px,7vw,90px)}
