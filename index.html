@@ -689,7 +689,7 @@ addEventListener('resize',()=>{for(const f of BUS)f(scrollY,innerHeight)});
 const P=[
 {t:'Loomin',im:'loomin',s:'NVIDIA GTC — WINNER',tag:'NVIDIA GTC',ven:'NVIDIA GTC — winner · built at CruzHacks 2026',
  st:[['<3s','prompt → simulation'],['1','external API call'],['10','simulation types'],['48','commits']],
- lk:[['Repo','https://github.com/Preet37/LoominPhysicsSandbox'],['Live','https://loomin-physics-sandbox.vercel.app'],['Devpost','https://devpost.com/software/loomin']],
+ lk:[['Repo','https://github.com/Preet37/LoominPhysicsSandbox'],['Devpost','https://devpost.com/software/loomin']],
  p:['Type any physics topic and get an interactive 3D simulation you can physically break.',
     'Three agents run the pipeline. Agent 1 does a local RAG lookup against a physics knowledge base. Agent 2 is the only network call — Nemotron Ultra 253B through NVIDIA NIM, streaming Markdown notes and a sim config together. Agent 3 validates structurally and, on violation, resets only the offending parameters rather than the whole scene.',
     'Ten simulation types ship with it: Betz-limit wind turbine, Newton\'s cradle, Tsiolkovsky rocket, robotic arm, projectile, spring-mass, Kepler orbit, bridge loading, hoop stress, plus AI-generated custom geometry. States run OPTIMAL → WARNING → CRITICAL_FAILURE.',
@@ -697,7 +697,7 @@ const P=[
 
 {t:'Onboardly',im:'onboardly',s:'WINNER',tag:'Cal Hacks 12.0',ven:'Cal Hacks 12.0 — Best Use of Conversion',
  st:[['1–3s','analysis latency'],['~50KB','per screenshot'],['5s','capture interval'],['4','surfaces']],
- lk:[['Repo','https://github.com/Preet37/Onboardly'],['Devpost','https://devpost.com/software/onboardly-3bp9gt'],['Demo','https://youtube.com/embed/ufnTHSQetfM']],
+ lk:[['Repo','https://github.com/Preet37/Onboardly'],['Devpost','https://devpost.com/software/onboardly-3bp9gt']],
  p:['Onboarding that watches a new hire work and coaches them in real time, instead of handing them a PDF.',
     'Four surfaces off one Express backend: a Chrome extension for the GCP console, a framework-free embeddable widget using the Screen Capture API, a React dashboard with Three.js and D3, and the API itself.',
     'The extension auto-captures every five seconds and posts to /analyze-screenshot. Gemini Vision reads the frame, Groq builds the workflow DAG, and progress streams back over SSE. A completed run opens a Jira epic with eight sub-tasks automatically.']},
@@ -711,7 +711,7 @@ const P=[
 
 {t:'SAGE',im:'sage',s:'WINNER',tag:'LA Hacks 2026',ven:'LA Hacks 2026 — Cloudinary Company Challenge',
  st:[['51','wiki topics'],['9','AI/ML subjects'],['5','sponsor tracks']],
- lk:[['Repo','https://github.com/Preet37/SAGE'],['Live','https://sage-virid-nu.vercel.app'],['Demo','https://youtube.com/embed/Zubxeygcx_E']],
+ lk:[['Repo','https://github.com/Preet37/SAGE'],['Demo','https://youtube.com/embed/Zubxeygcx_E']],
  p:['A teaching platform with three faces: a voice tutor that runs simulations, a course creator that scores its own groundedness, and a live presence map showing where every student is.',
     'Llama 3.3 70B tutors, 3.1 8B takes the fast paths, and an on-device WebGPU model runs Pocket Tutor with no network at all. ElevenLabs handles voice; Judge0 and Piston execute submitted code.',
     'Ingests PDF, DOCX, PPTX and MP4 through Cloudinary, generates a course, then verifies its own claims against the source with a groundedness scorer and TF-IDF semantic memory.']},
