@@ -1230,9 +1230,11 @@ const ALSO=[
  requestAnimationFrame(reveal);
 
  // counting figures
+ // [value, label, link, suffix] — a suffix keeps a number that only grows from going stale
  const FIG=[[912,'github contributions','https://github.com/Preet37'],[9,'hackathon wins'],
-   [396643,'impressions'],[3898,'linkedin followers','https://linkedin.com/in/preetkaria']];
- $('#figrow').innerHTML=FIG.map(f=>{const in_=`<b data-to="${f[0]}">0</b><span>${f[1]}</span>`;
+   [396643,'impressions'],[3900,'linkedin followers','','+']];
+ $('#figrow').innerHTML=FIG.map(f=>{
+   const in_=`<b data-to="${f[0]}"${f[3]?` data-suf="${f[3]}"`:''}>0</b><span>${f[1]}</span>`;
    return f[2]?`<div><a href="${f[2]}" target="_blank" rel="noopener">${in_}</a></div>`:`<div>${in_}</div>`}).join('');
  // he ships constantly, so a hard-coded contribution count goes stale — refresh it live
  fetch('https://github-contributions-api.jogruber.de/v4/Preet37?y=last')
@@ -1241,10 +1243,11 @@ const ALSO=[
      if(!(n>0)||!b)return;
      b.dataset.to=String(n);
      // if the counter already ran, correct the figure in place
-     if(b.textContent!=='0')b.textContent=n.toLocaleString('en-US')})
+     if(b.textContent!=='0')b.textContent=n.toLocaleString('en-US')+(b.dataset.suf||'')})
    .catch(()=>{});
  const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co.unobserve(e.target);
-   const to=+e.target.dataset.to,t0=performance.now(),dur=1400,fmt=n=>n.toLocaleString('en-US');
+   const to=+e.target.dataset.to,t0=performance.now(),dur=1400,suf=e.target.dataset.suf||'';
+   const fmt=n=>n.toLocaleString('en-US')+suf;
    const tick=t=>{const k=Math.min((t-t0)/dur,1),v=Math.round(to*(1-Math.pow(1-k,3)));
      e.target.textContent=fmt(v);if(k<1)requestAnimationFrame(tick)};
    RM?e.target.textContent=fmt(to):requestAnimationFrame(tick);}),{rootMargin:'0px 0px -12% 0px'});
