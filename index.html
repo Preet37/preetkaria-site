@@ -415,6 +415,45 @@ main,footer{position:relative;z-index:1}
 .rail article .s{font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,243,248,.38);margin-top:10px}
 .railhint{display:none}
 
+/* ══ RECOGNITION — proof strip, awards, press ════════════════════ */
+.lab.sub{border-top:1px solid var(--line)}
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border-bottom:1px solid var(--line)}
+.proof figure{position:relative;background:var(--navy);overflow:hidden;aspect-ratio:4/3}
+.proof img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(.92) brightness(.86);transition:transform .8s var(--out),filter .5s var(--ease)}
+.proof figure:hover img{transform:scale(1.05);filter:saturate(1.05) brightness(1.04)}
+.proof figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;
+  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
+  color:rgba(245,243,248,.88);
+  background:linear-gradient(to top,rgba(10,9,16,.94),rgba(10,9,16,.55) 60%,transparent)}
+@media(max-width:900px){.proof{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.proof{grid-template-columns:1fr}}
+
+.press{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border-bottom:1px solid var(--line)}
+.pr{background:var(--navy);padding:22px 20px 20px;display:grid;align-content:start;gap:9px;
+  transition:background .3s var(--ease)}
+.pr:hover{background:rgba(139,92,255,.07)}
+.pr .src{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--rust)}
+.pr .hl{font-family:var(--serif);font-size:clamp(16px,1.5vw,19px);line-height:1.32;color:var(--cream)}
+.pr .go{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.3px;
+  text-transform:uppercase;color:rgba(245,243,248,.42);margin-top:6px;
+  display:flex;align-items:center;gap:6px;transition:color .3s}
+.pr:hover .go{color:var(--cream)}
+.pr .go s{text-decoration:none;transition:transform .4s var(--out)}
+.pr:hover .go s{transform:translate(3px,-3px)}
+@media(max-width:900px){.press{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.press{grid-template-columns:1fr}}
+
+.pull{padding:clamp(34px,5vw,60px) clamp(20px,5vw,80px);display:grid;gap:14px;justify-items:start}
+.pull p{font-family:var(--serif);font-size:clamp(20px,2.4vw,32px);line-height:1.34;
+  color:var(--cream);max-width:26ch;text-wrap:balance}
+.pull cite{font-family:var(--mono);font-size:10px;font-style:normal;letter-spacing:1.3px;
+  text-transform:uppercase;color:rgba(245,243,248,.45)}
+.pull cite i{font-style:normal;color:var(--rust)}
+
 /* ══ AWARDS ══════════════════════════════════════════════════════ */
 .awd{padding:clamp(28px,4vw,52px) clamp(0px,6vw,110px) clamp(30px,4vw,56px) 0}
 .awd ol{list-style:none;display:grid;gap:0}
@@ -688,20 +727,66 @@ main,footer{position:relative;z-index:1}
 
   <!-- ── CLOSING: panel → capsule → circle → mark ── -->
   <section class="sec" id="awards">
-    <div class="lab mn"><b>Awards</b><span>05</span></div>
+    <div class="lab mn"><b>Recognition</b><span>05</span></div>
+
+    <div class="proof">
+      <figure><img src="press/mayor@700.jpg" alt="Receiving a commendation from the Mayor of Fremont" loading="lazy" decoding="async">
+        <figcaption>Commendation from the Mayor of Fremont</figcaption></figure>
+      <figure><img src="press/ftc-control@700.jpg" alt="Holding the FIRST Tech Challenge World Championship Control Award" loading="lazy" decoding="async">
+        <figcaption>Control Award &mdash; FTC World Championship, Ochoa Division</figcaption></figure>
+      <figure><img src="press/ftc-inspire@700.jpg" alt="Inspire Award banner hanging above the robot" loading="lazy" decoding="async">
+        <figcaption>Inspire Award &mdash; NorCal Regional Championship</figcaption></figure>
+      <figure><img src="press/calhacks@700.jpg" alt="The Cal Hacks team after winning" loading="lazy" decoding="async">
+        <figcaption>Cal Hacks 12.0 &mdash; the team</figcaption></figure>
+    </div>
+
     <div class="awd">
       <ol>
-        <li><span class="p">NVIDIA GTC 2026</span><span class="a">1st of ~300 &mdash; Agents for Impact</span><span class="f">Loomin</span></li>
+        <li><span class="p">NVIDIA &middot; Mar 2026</span><span class="a">1st place, GTC 2026 Agents for Impact &mdash; 1st of ~300</span><span class="f">Loomin</span></li>
         <li><span class="p">GTC Researchers Reception</span><span class="a">Spoke with Jensen Huang about Loomin</span><span class="f"></span></li>
-        <li><span class="p">AGI Inc &times; OpenAI &times; Lovable</span><span class="a">Best Use of Sentry &middot; Best Use of Telnyx</span><span class="f">Sentinel</span></li>
-        <li><span class="p">Cal Hacks 12.0</span><span class="a">Best Use of Conversion</span><span class="f">Onboardly</span></li>
-        <li><span class="p">LA Hacks 2026</span><span class="a">Cloudinary Company Challenge</span><span class="f">SAGE</span></li>
-        <li><span class="p">ACMHacks 2025</span><span class="a">3rd Overall</span><span class="f">Learnify</span></li>
+        <li><span class="p">LA Hacks (UCLA) &middot; Apr 2026</span><span class="a">Winner, Cloudinary Developer Track</span><span class="f">SAGE</span></li>
+        <li><span class="p">AGI Inc &times; OpenAI &middot; Sep 2025</span><span class="a">Winner &mdash; Best Use of Sentry &middot; Best Use of Telnyx</span><span class="f">Sentinel</span></li>
+        <li><span class="p">Cal Hacks 12.0 &middot; Sep 2025</span><span class="a">Winner &mdash; Best Use of Conversion</span><span class="f">Onboardly</span></li>
+        <li><span class="p">ACMHacks 2025</span><span class="a">3rd overall</span><span class="f">Learnify</span></li>
+        <li><span class="p">FIRST Tech Challenge &middot; 2023</span><span class="a">Control Award finalist &mdash; World Championship, Ochoa Division</span><span class="f">Ink &amp; Metal</span></li>
+        <li><span class="p">FIRST Tech Challenge</span><span class="a">3&times; Inspire Award winner &middot; 2&times; World Championship qualifier</span><span class="f">Ink &amp; Metal</span></li>
         <li><span class="p">City of Fremont</span><span class="a">Commendation from the Mayor</span><span class="f"></span></li>
-        <li><span class="p">FTC Robotics</span><span class="a">Inspire Award</span><span class="f"></span></li>
       </ol>
-      <p class="awdnote">9 hackathon wins across 11 entered. Presented Loomin at the NVIDIA Developer Meetup.</p>
+      <p class="awdnote">9 hackathon wins across 11 entered.</p>
     </div>
+
+    <div class="lab mn sub"><b>Press</b><span>&mdash;</span></div>
+    <div class="press">
+      <a class="pr" href="https://news.ucsc.edu/2026/04/engineering-student-wins-nvidia-agents-for-impact-hackathon/" target="_blank" rel="noopener">
+        <span class="src">UC Santa Cruz News &middot; 2 Apr 2026</span>
+        <span class="hl">Engineering student wins NVIDIA Agents for Impact Hackathon</span>
+        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
+      <a class="pr" href="https://news.ucsc.edu/2026/06/agentic-ai-first-uc-santa-cruz-hackathon-with-nvidia-asus/" target="_blank" rel="noopener">
+        <span class="src">UC Santa Cruz News &middot; 3 Jun 2026</span>
+        <span class="hl">Students create agentic AI at first UC Santa Cruz hackathon with NVIDIA, ASUS</span>
+        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
+      <a class="pr" href="https://patch.com/california/fremont/fremont-high-schoolers-create-award-winning-robotic-waste-sorter" target="_blank" rel="noopener">
+        <span class="src">Patch &middot; Fremont</span>
+        <span class="hl">Fremont High Schoolers Create Award-Winning Robotic Waste Sorter</span>
+        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
+      <a class="pr" href="https://www.linkedin.com/posts/cynthia-larive-83218a8_big-ideas-take-shape-when-curiosity-meets-activity-7445897567231700992-smfV" target="_blank" rel="noopener">
+        <span class="src">Chancellor Cynthia Larive &middot; UC Santa Cruz</span>
+        <span class="hl">Featured by the Chancellor</span>
+        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
+      <a class="pr" href="https://www.linkedin.com/posts/baskinengineering_ai-baskinengineering-activity-7468016590383562753-6CnH" target="_blank" rel="noopener">
+        <span class="src">Baskin Engineering &middot; 2,455 reactions</span>
+        <span class="hl">NVIDIA hackathon winner &mdash; and a conversation with Jensen Huang</span>
+        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
+      <a class="pr" href="https://www.linkedin.com/posts/baskinengineering_lahacks2026-lahacks-cloudinary-activity-7458277145992380416-0MiX" target="_blank" rel="noopener">
+        <span class="src">Baskin Engineering &middot; Apr 2026</span>
+        <span class="hl">LA Hacks 2026 &mdash; Cloudinary Developer Track win</span>
+        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
+    </div>
+
+    <blockquote class="pull">
+      <p>&ldquo;I could see this as something that can be implemented within not just schools, but also industry as well.&rdquo;</p>
+      <cite>Preet Karia, <i>UC Santa Cruz News</i></cite>
+    </blockquote>
   </section>
 
   <section class="sec morph" id="morph">
