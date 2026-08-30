@@ -382,6 +382,8 @@ main,footer{position:relative;z-index:1}
 .figwrap{padding-bottom:8px}
 .fignote{position:relative;margin:16px 0 0;font-size:14px;color:rgba(245,243,248,.42)}
 .fignote .todo{color:var(--rust)}
+.figrow a{color:inherit;display:block;transition:color .3s}
+.figrow a:hover{color:var(--rust)}
 .figrow span{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;opacity:.6}
 @media(max-width:760px){.figrow{grid-template-columns:1fr 1fr}.figrow div:nth-child(2){border-right:0}.figrow div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 
@@ -491,7 +493,6 @@ main,footer{position:relative;z-index:1}
 /* movement 3 — one line, in somebody else's voice ─────────────── */
 .pull{border-top:1px solid var(--line);padding:clamp(40px,6.5vw,86px) clamp(20px,6vw,90px);
   display:grid;gap:20px;justify-items:center;text-align:center}
-.pkick{color:rgba(245,243,248,.34);margin-bottom:-4px}
 .pull p{font-family:var(--serif);font-size:clamp(23px,3.4vw,46px);line-height:1.24;
   letter-spacing:-.015em;color:var(--cream);max-width:22ch}
 .pull p w{display:inline-block;opacity:0;filter:blur(5px);transform:translateY(.24em)}
@@ -793,17 +794,17 @@ main,footer{position:relative;z-index:1}
               <div class="tbt">
                 <b class="fig"><i data-to="1">0</i><em>st</em></b>
                 <span class="unit mn">of ~300 teams &middot; NVIDIA GTC 2026</span>
-                <p>First place at <b>Agents for Impact</b>, NVIDIA&rsquo;s GTC hackathon. Built solo. <b>Jensen Huang</b> asked about it at the Researchers Reception that night.</p>
+                <p>First place at <b>Agents for Impact</b>, NVIDIA&rsquo;s GTC hackathon. Built solo. <b>Jensen Huang</b> asked about it at the Researchers Reception.</p>
               </div>
               <div class="tbt">
                 <b class="fig"><i data-to="119">0</i></b>
-                <span class="unit mn">project submissions &middot; one winner</span>
-                <p>The largest field an NVIDIA hackathon has ever taken. Loomin won it &mdash; then went back to present to NVIDIA&rsquo;s engineers at the <b>Developer Meetup</b>.</p>
+                <span class="unit mn">project submissions</span>
+                <p>Loomin won it, then presented at the <b>NVIDIA Developer Meetup</b>.</p>
               </div>
               <div class="tbt">
                 <b class="fig"><i data-to="9">0</i></b>
                 <span class="unit mn">hackathons won, of 11 entered</span>
-                <p>Wins at <b>NVIDIA</b>, <b>LA Hacks</b>, <b>Cal Hacks</b>, <b>AGI Inc &times; OpenAI</b> and ACMHacks. Different sponsors, different judges, same result.</p>
+                <p>Wins at <b>NVIDIA</b>, <b>LA Hacks</b>, <b>Cal Hacks</b>, <b>AGI Inc &times; OpenAI</b> and ACMHacks.</p>
               </div>
               <div class="tbt">
                 <b class="fig"><i data-to="3">0</i><em class="x">&times;</em></b>
@@ -866,10 +867,9 @@ main,footer{position:relative;z-index:1}
 
     <!-- movement 3 — somebody else's voice -->
     <blockquote class="pull" id="pull">
-      <span class="pkick mn">On the winner of NVIDIA&rsquo;s Agents for Impact &mdash; a field of 119</span>
-      <p>This was a solo project by Preet Karia.</p>
-      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7450663970769907712/" target="_blank" rel="noopener">
-        <cite><b>Cynthia Teniente-Matson</b>President &amp; CEO, San Jos&eacute; State University <s aria-hidden="true">&#8599;</s></cite>
+      <p>The idea was simply to break the machine.</p>
+      <a href="https://news.ucsc.edu/2026/04/engineering-student-wins-nvidia-agents-for-impact-hackathon/" target="_blank" rel="noopener">
+        <cite><b>Preet Karia</b>UC Santa Cruz News, on Loomin <s aria-hidden="true">&#8599;</s></cite>
       </a>
     </blockquote>
   </section>
@@ -1230,8 +1230,19 @@ const ALSO=[
  requestAnimationFrame(reveal);
 
  // counting figures
- const FIG=[[823,'github contributions'],[9,'hackathon wins'],[396643,'impressions, one post'],[3898,'followers']];
- $('#figrow').innerHTML=FIG.map(f=>`<div><b data-to="${f[0]}">0</b><span>${f[1]}</span></div>`).join('');
+ const FIG=[[912,'github contributions','https://github.com/Preet37'],[9,'hackathon wins'],
+   [396643,'impressions'],[3898,'linkedin followers','https://linkedin.com/in/preetkaria']];
+ $('#figrow').innerHTML=FIG.map(f=>{const in_=`<b data-to="${f[0]}">0</b><span>${f[1]}</span>`;
+   return f[2]?`<div><a href="${f[2]}" target="_blank" rel="noopener">${in_}</a></div>`:`<div>${in_}</div>`}).join('');
+ // he ships constantly, so a hard-coded contribution count goes stale — refresh it live
+ fetch('https://github-contributions-api.jogruber.de/v4/Preet37?y=last')
+   .then(r=>r.ok?r.json():null)
+   .then(d=>{const n=d&&d.total&&d.total.lastYear,b=$('#figrow b[data-to]');
+     if(!(n>0)||!b)return;
+     b.dataset.to=String(n);
+     // if the counter already ran, correct the figure in place
+     if(b.textContent!=='0')b.textContent=n.toLocaleString('en-US')})
+   .catch(()=>{});
  const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co.unobserve(e.target);
    const to=+e.target.dataset.to,t0=performance.now(),dur=1400,fmt=n=>n.toLocaleString('en-US');
    const tick=t=>{const k=Math.min((t-t0)/dur,1),v=Math.round(to*(1-Math.pow(1-k,3)));
