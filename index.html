@@ -209,7 +209,7 @@ main,footer{position:relative;z-index:1}
 
 /* ══ SMALL SCREENS ═══════════════════════════════════════════════ */
 @media(max-width:760px){
-  .tl,.awd,.drop{padding-right:18px}
+  .tl,.drop{padding-right:18px}
   .tl ol{padding-left:26px}
   .tl li::before{left:-26px}
   .figrow{grid-template-columns:1fr 1fr}
@@ -221,8 +221,6 @@ main,footer{position:relative;z-index:1}
   .pol{width:min(88%,320px)}
   .polside{max-width:none}
   .scue{bottom:5vh}
-  .awd{padding-right:14px}
-  .awd .f{text-align:left}
 }
 
 /* ══ SCROLL CUE — three chevrons and a word ═══════════════════════ */
@@ -415,61 +413,116 @@ main,footer{position:relative;z-index:1}
 .rail article .s{font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,243,248,.38);margin-top:10px}
 .railhint{display:none}
 
-/* ══ RECOGNITION — proof strip, awards, press ════════════════════ */
+/* ══ RECOGNITION ═════════════════════════════════════════════════ */
 .lab.sub{border-top:1px solid var(--line)}
-.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-  border-bottom:1px solid var(--line)}
-.proof figure{position:relative;background:var(--navy);overflow:hidden;aspect-ratio:4/3}
-.proof img{width:100%;height:100%;object-fit:cover;display:block;
-  filter:saturate(.92) brightness(.86);transition:transform .8s var(--out),filter .5s var(--ease)}
-.proof figure:hover img{transform:scale(1.05);filter:saturate(1.05) brightness(1.04)}
-.proof figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;
-  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  color:rgba(245,243,248,.88);
-  background:linear-gradient(to top,rgba(10,9,16,.94),rgba(10,9,16,.55) 60%,transparent)}
-@media(max-width:900px){.proof{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.proof{grid-template-columns:1fr}}
 
-.press{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
-  border-bottom:1px solid var(--line)}
-.pr{background:var(--navy);padding:22px 20px 20px;display:grid;align-content:start;gap:9px;
-  transition:background .3s var(--ease)}
-.pr:hover{background:rgba(139,92,255,.07)}
-.pr .src{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.2px;
-  text-transform:uppercase;color:var(--rust)}
-.pr .hl{font-family:var(--serif);font-size:clamp(16px,1.5vw,19px);line-height:1.32;color:var(--cream)}
-.pr .go{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.3px;
-  text-transform:uppercase;color:rgba(245,243,248,.42);margin-top:6px;
-  display:flex;align-items:center;gap:6px;transition:color .3s}
-.pr:hover .go{color:var(--cream)}
-.pr .go s{text-decoration:none;transition:transform .4s var(--out)}
-.pr:hover .go s{transform:translate(3px,-3px)}
-@media(max-width:900px){.press{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.press{grid-template-columns:1fr}}
+/* movement 1 — the tally: one figure at a time, scrubbed by scroll */
+.tal{position:relative}
+.talstick{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;align-content:center}
+.talglow{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(58% 54% at 24% 44%,rgba(139,92,255,.17),transparent 72%)}
+.talgrid{position:relative;display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
+  gap:clamp(24px,4vw,66px);align-items:center;padding:0 clamp(20px,5vw,72px)}
+.talleft{position:relative;z-index:1;min-width:0}
+.talcount{color:rgba(245,243,248,.3);margin-bottom:clamp(14px,2.2vw,26px)}
+.talcount i{font-style:normal;color:var(--rust)}
+.talstage{position:relative;min-height:clamp(220px,27vw,306px)}
+.tbt{position:absolute;inset:0;opacity:0;transform:translateY(24px);pointer-events:none;
+  transition:opacity .45s var(--out),transform .65s var(--out)}
+.tbt.on{opacity:1;transform:none;pointer-events:auto;transition-delay:.16s}
+.tbt .fig{display:flex;align-items:baseline;gap:.04em;font-family:var(--disp);font-weight:400;
+  font-size:clamp(72px,12.5vw,172px);line-height:.82;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.tbt .fig em{font-style:normal;font-size:.33em;letter-spacing:-.01em;color:var(--rust)}
+.tbt .fig em.x{align-self:center;font-size:.26em;margin-bottom:.1em}
+.tbt .unit{display:block;margin-top:15px;color:rgba(245,243,248,.46)}
+.tbt p{margin-top:15px;font-size:clamp(15.5px,1.55vw,20px);line-height:1.46;font-weight:300;
+  color:rgba(245,243,248,.8);max-width:42ch}
+.tbt p b{font-weight:400;color:var(--cream)}
+.taltick{display:flex;align-items:center;gap:7px;margin-top:clamp(20px,3vw,36px)}
+.taltick i{width:24px;height:2px;background:rgba(245,243,248,.15);
+  transition:background .4s,width .45s var(--out)}
+.taltick i.on{background:var(--rust);width:50px}
+/* the stage holds for five screens — say so, then get out of the way */
+.talcue{display:flex;align-items:center;gap:9px;margin-left:18px;font-weight:700;
+  color:rgba(245,243,248,.3);transition:opacity .6s var(--out)}
+.talcue s{display:block;width:8px;height:8px;text-decoration:none;rotate:45deg;
+  border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;
+  animation:chev 1.7s ease-in-out infinite}
+.tal.moved .talcue{opacity:0}
+.talpic{position:relative;height:min(64vh,540px);aspect-ratio:4/5;width:auto;justify-self:end;
+  border:1px solid var(--line);overflow:hidden;background:#0d0b16}
+.talpic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  opacity:0;transform:scale(1.07);transition:opacity .85s var(--out),transform 1.5s var(--out)}
+.talpic img.on{opacity:1;transform:none}
+.talpic img[data-pos]{object-position:center var(--op)}
+.talpic::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(196deg,transparent 44%,rgba(10,9,16,.62));
+  box-shadow:inset 0 0 92px rgba(139,92,255,.2)}
+.talcap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:12px 14px;
+  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:rgba(245,243,248,.62);opacity:0;transition:opacity .5s var(--out)}
+.talcap.on{opacity:1}
 
-.pull{padding:clamp(34px,5vw,60px) clamp(20px,5vw,80px);display:grid;gap:14px;justify-items:start}
-.pull p{font-family:var(--serif);font-size:clamp(20px,2.4vw,32px);line-height:1.34;
-  color:var(--cream);max-width:26ch;text-wrap:balance}
-.pull cite{font-family:var(--mono);font-size:10px;font-style:normal;letter-spacing:1.3px;
-  text-transform:uppercase;color:rgba(245,243,248,.45)}
-.pull cite i{font-style:normal;color:var(--rust)}
+/* movement 2 — the index: awards and coverage, same quiet row ──── */
+.idxwrap{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.idx{border-right:1px solid var(--line);min-width:0}
+.idx:last-child{border-right:0}
+.idx>.lab{border-top:0}
+.idx ol{list-style:none;margin:0;padding:0}
+.idx li{border-bottom:1px solid rgba(245,243,248,.075)}
+.idx li:last-child{border-bottom:0}
+.idx .row{position:relative;display:grid;gap:5px;color:inherit;
+  padding:13px clamp(13px,1.7vw,20px);transition:padding-left .45s var(--out),background .35s}
+.idx .row::after{content:'';position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:var(--rust);
+  transform:scaleX(0);transform-origin:left;transition:transform .55s var(--out)}
+.idx a.row:hover::after{transform:scaleX(1)}
+.idx a.row:hover{padding-left:calc(clamp(13px,1.7vw,20px) + 11px);background:rgba(139,92,255,.05)}
+.idx .m{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.idx .w{color:rgba(245,243,248,.36);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.idx .g{color:rgba(245,243,248,.26);white-space:nowrap;transition:color .3s}
+.idx a.row:hover .g{color:var(--rust)}
+.idx .t{font-family:var(--serif);font-weight:400;font-size:clamp(14.5px,1.4vw,17.5px);
+  line-height:1.34;color:var(--cream)}
+.idx .t b{font-weight:400;color:var(--rust)}
+.idxnote{grid-column:1/-1;border-top:1px solid var(--line);padding:14px clamp(13px,1.7vw,20px);
+  font-size:14px;color:rgba(245,243,248,.4)}
 
-/* ══ AWARDS ══════════════════════════════════════════════════════ */
-.awd{padding:clamp(28px,4vw,52px) clamp(0px,6vw,110px) clamp(30px,4vw,56px) 0}
-.awd ol{list-style:none;display:grid;gap:0}
-.awd li{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,2.1fr) 130px;gap:28px;
-  align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line);
-  transition:padding-left .45s var(--out)}
-.awd li:hover{padding-left:14px}
-.awd li:first-child{border-top:1px solid var(--line)}
-.awd .p{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.4px;
-  text-transform:uppercase;color:rgba(245,243,248,.5)}
-.awd .a{font-size:clamp(17px,1.7vw,23px);color:var(--cream);line-height:1.3}
-.awd .f{font-family:var(--mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;
-  color:var(--rust);white-space:nowrap;text-align:right}
-.awd li:hover .p{color:rgba(245,243,248,.8)}
-.awdnote{margin-top:22px;font-size:14.5px;color:rgba(245,243,248,.42)}
-@media(max-width:760px){.awd li{grid-template-columns:1fr;gap:5px}}
+/* movement 3 — one line, in somebody else's voice ─────────────── */
+.pull{border-top:1px solid var(--line);padding:clamp(40px,6.5vw,86px) clamp(20px,6vw,90px);
+  display:grid;gap:20px;justify-items:center;text-align:center}
+.pkick{color:rgba(245,243,248,.34);margin-bottom:-4px}
+.pull p{font-family:var(--serif);font-size:clamp(23px,3.4vw,46px);line-height:1.24;
+  letter-spacing:-.015em;color:var(--cream);max-width:22ch}
+.pull p w{display:inline-block;opacity:0;filter:blur(5px);transform:translateY(.24em)}
+.pull.in p w{animation:wIn .55s var(--out) forwards;animation-delay:calc(var(--i)*.05s)}
+.pull cite{font-family:var(--mono);font-size:10px;font-style:normal;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:rgba(245,243,248,.42);line-height:1.7}
+.pull cite b{display:block;font-weight:700;color:var(--rust)}
+.pull cite s{text-decoration:none;transition:transform .4s var(--out);display:inline-block}
+.pull a:hover s{transform:translate(3px,-3px)}
+.pull a{color:inherit}
+.pull a:hover cite{color:var(--cream)}
+
+@media(max-width:900px){
+  .talgrid{position:static;grid-template-columns:1fr;padding:0 20px}
+  .talpic{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;
+    border:0;opacity:.22;z-index:0}
+  .talcap{display:none}
+  .talstage{min-height:clamp(240px,54vw,330px)}
+  .tbt .fig{font-size:clamp(64px,21vw,120px)}
+  .tbt p{max-width:none}
+  .idxwrap{grid-template-columns:1fr}
+  .idx{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media(prefers-reduced-motion:reduce){
+  .tal{height:auto!important}
+  .talstick{position:static;height:auto;padding:40px 0}
+  .talstage{min-height:0;display:grid;gap:44px}
+  .tbt{position:static;opacity:1;transform:none;pointer-events:auto}
+  .talpic{display:none}
+  .pull p w{opacity:1;filter:none;transform:none;animation:none}
+}
 
 /* ══ CLOSING MORPH ════════════════════════════════════════════════ */
 .morph{height:240vh;position:relative}
@@ -729,71 +782,95 @@ main,footer{position:relative;z-index:1}
   <section class="sec" id="awards">
     <div class="lab mn"><b>Recognition</b><span>05</span></div>
 
-    <div class="proof">
-      <figure><img src="press/mayor@700.jpg" alt="Receiving a commendation from Mayor Lily Mei of Fremont" loading="lazy" decoding="async">
-        <figcaption>Commendation from Mayor Lily Mei, City of Fremont</figcaption></figure>
-      <figure><img src="press/ftc-control@700.jpg" alt="Holding the FIRST Tech Challenge World Championship Control Award" loading="lazy" decoding="async">
-        <figcaption>Control Award &mdash; FTC World Championship, Ochoa Division</figcaption></figure>
-      <figure><img src="press/ftc-inspire@700.jpg" alt="Inspire Award banner hanging above the robot" loading="lazy" decoding="async">
-        <figcaption>Inspire Award &mdash; NorCal Regional Championship</figcaption></figure>
-      <figure><img src="press/calhacks@700.jpg" alt="The Cal Hacks team after winning" loading="lazy" decoding="async">
-        <figcaption>Cal Hacks 12.0 &mdash; the team</figcaption></figure>
+    <!-- movement 1 — the tally -->
+    <div class="tal" id="tal">
+      <div class="talstick">
+        <div class="talglow"></div>
+        <div class="talgrid">
+          <div class="talleft">
+            <div class="talcount mn"><i id="talnow">01</i> &nbsp;/&nbsp; 05</div>
+            <div class="talstage">
+              <div class="tbt">
+                <b class="fig"><i data-to="1">0</i><em>st</em></b>
+                <span class="unit mn">of ~300 teams &middot; NVIDIA GTC 2026</span>
+                <p>First place at <b>Agents for Impact</b>, NVIDIA&rsquo;s GTC hackathon. Built solo. <b>Jensen Huang</b> asked about it at the Researchers Reception that night.</p>
+              </div>
+              <div class="tbt">
+                <b class="fig"><i data-to="119">0</i></b>
+                <span class="unit mn">project submissions &middot; one winner</span>
+                <p>The largest field an NVIDIA hackathon has ever taken. Loomin won it &mdash; then went back to present to NVIDIA&rsquo;s engineers at the <b>Developer Meetup</b>.</p>
+              </div>
+              <div class="tbt">
+                <b class="fig"><i data-to="9">0</i></b>
+                <span class="unit mn">hackathons won, of 11 entered</span>
+                <p>Wins at <b>NVIDIA</b>, <b>LA Hacks</b>, <b>Cal Hacks</b>, <b>AGI Inc &times; OpenAI</b> and ACMHacks. Different sponsors, different judges, same result.</p>
+              </div>
+              <div class="tbt">
+                <b class="fig"><i data-to="3">0</i><em class="x">&times;</em></b>
+                <span class="unit mn">FTC Inspire Award</span>
+                <p>The <b>Inspire Award</b> is the top honour in FIRST Tech Challenge, for the team judged strongest across the whole competition. Twice qualified for the <b>World Championship</b>, and a Control Award finalist in the Ochoa Division.</p>
+              </div>
+              <div class="tbt">
+                <b class="fig"><i data-to="1">0</i></b>
+                <span class="unit mn">commendation &middot; City of Fremont</span>
+                <p>Presented by <b>Mayor Lily Mei</b>. The Chancellor of UC Santa Cruz and the President of San Jos&eacute; State have since named the work publicly too.</p>
+              </div>
+            </div>
+            <div class="taltick"><i></i><i></i><i></i><i></i><i></i><span class="talcue mn">Scroll <s aria-hidden="true"></s></span></div>
+          </div>
+
+          <figure class="talpic">
+            <img src="press/jensen.jpg" srcset="press/jensen@700.jpg 700w, press/jensen.jpg 1200w" sizes="(max-width:900px) 100vw, 34vw" alt="With Jensen Huang at NVIDIA GTC 2026" data-cap="With Jensen Huang &middot; GTC 2026" loading="lazy" decoding="async">
+            <img src="press/meetup.jpg" srcset="press/meetup@700.jpg 700w, press/meetup.jpg 1200w" sizes="(max-width:900px) 100vw, 34vw" alt="Presenting Loomin at the NVIDIA Developer Meetup" data-cap="Presenting Loomin &middot; NVIDIA Developer Meetup" loading="lazy" decoding="async">
+            <img src="press/calhacks.jpg" srcset="press/calhacks@700.jpg 700w, press/calhacks.jpg 1200w" sizes="(max-width:900px) 100vw, 34vw" alt="The Cal Hacks 12.0 team after winning" data-cap="Cal Hacks 12.0" loading="lazy" decoding="async">
+            <img src="press/ftc-control.jpg" srcset="press/ftc-control@700.jpg 700w, press/ftc-control.jpg 1200w" sizes="(max-width:900px) 100vw, 34vw" alt="Holding the FIRST Tech Challenge World Championship Control Award" data-cap="Control Award &mdash; Ochoa Division, FTC Worlds" loading="lazy" decoding="async">
+            <img src="press/mayor.jpg" srcset="press/mayor@700.jpg 700w, press/mayor.jpg 1200w" sizes="(max-width:900px) 100vw, 34vw" alt="Receiving a commendation from Mayor Lily Mei of Fremont" data-cap="Commendation from Mayor Lily Mei" loading="lazy" decoding="async">
+            <figcaption class="talcap mn"></figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
 
-    <div class="awd">
-      <ol>
-        <li><span class="p">NVIDIA &middot; Mar 2026</span><span class="a">1st place, GTC 2026 Agents for Impact &mdash; 1st of ~300</span><span class="f">Loomin</span></li>
-        <li><span class="p">GTC Researchers Reception</span><span class="a">Spoke with Jensen Huang about Loomin</span><span class="f"></span></li>
-        <li><span class="p">LA Hacks (UCLA) &middot; Apr 2026</span><span class="a">Winner, Cloudinary Developer Track</span><span class="f">SAGE</span></li>
-        <li><span class="p">AGI Inc &times; OpenAI &middot; Sep 2025</span><span class="a">Winner &mdash; Best Use of Sentry &middot; Best Use of Telnyx</span><span class="f">Sentinel</span></li>
-        <li><span class="p">Cal Hacks 12.0 &middot; Sep 2025</span><span class="a">Winner &mdash; Best Use of Conversion</span><span class="f">Onboardly</span></li>
-        <li><span class="p">ACMHacks 2025</span><span class="a">3rd overall</span><span class="f">Learnify</span></li>
-        <li><span class="p">FIRST Tech Challenge &middot; 2023</span><span class="a">Control Award finalist &mdash; World Championship, Ochoa Division</span><span class="f">Ink &amp; Metal</span></li>
-        <li><span class="p">FIRST Tech Challenge</span><span class="a">3&times; Inspire Award winner &middot; 2&times; World Championship qualifier</span><span class="f">Ink &amp; Metal</span></li>
-        <li><span class="p">City of Fremont</span><span class="a">Commendation from Mayor Lily Mei</span><span class="f"></span></li>
-      </ol>
-      <p class="awdnote">9 hackathon wins across 11 entered. Recognised by the Chancellor of UC Santa Cruz and the President of San Jos&eacute; State.</p>
+    <!-- movement 2 — the index -->
+    <div class="idxwrap">
+      <div class="idx">
+        <div class="lab mn sub"><b>Awards</b><span>09</span></div>
+        <ol>
+          <li><div class="row"><span class="m"><span class="w">NVIDIA &middot; Mar 2026</span><span class="g">Loomin</span></span><span class="t">1st place, GTC 2026 Agents for Impact &mdash; <b>1st of ~300</b></span></div></li>
+          <li><div class="row"><span class="m"><span class="w">GTC Researchers Reception</span><span class="g">Loomin</span></span><span class="t">Spoke with <b>Jensen Huang</b> about the build</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">LA Hacks, UCLA &middot; Apr 2026</span><span class="g">SAGE</span></span><span class="t">Winner, Cloudinary Developer Track</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">AGI Inc &times; OpenAI &middot; Sep 2025</span><span class="g">Sentinel</span></span><span class="t">Winner &mdash; Best Use of Sentry &middot; Best Use of Telnyx</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">Cal Hacks 12.0 &middot; Sep 2025</span><span class="g">Onboardly</span></span><span class="t">Winner &mdash; Best Use of Conversion</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">ACMHacks &middot; 2025</span><span class="g">Learnify</span></span><span class="t">3rd overall</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">FIRST Tech Challenge &middot; 2023</span><span class="g">Ink &amp; Metal</span></span><span class="t">Control Award finalist &mdash; World Championship, Ochoa Division</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">FIRST Tech Challenge</span><span class="g">Ink &amp; Metal</span></span><span class="t">3&times; Inspire Award &middot; 2&times; World Championship qualifier</span></div></li>
+          <li><div class="row"><span class="m"><span class="w">City of Fremont</span><span class="g">Robotics</span></span><span class="t">Commendation from <b>Mayor Lily Mei</b></span></div></li>
+        </ol>
+      </div>
+
+      <div class="idx">
+        <div class="lab mn sub"><b>Press</b><span>08</span></div>
+        <ol>
+          <li><a class="row" href="https://news.ucsc.edu/2026/04/engineering-student-wins-nvidia-agents-for-impact-hackathon/" target="_blank" rel="noopener"><span class="m"><span class="w">UC Santa Cruz News &middot; Apr 2026</span><span class="g">Read &#8599;</span></span><span class="t">Engineering student wins NVIDIA Agents for Impact Hackathon</span></a></li>
+          <li><a class="row" href="https://www.linkedin.com/feed/update/urn:li:activity:7450663970769907712/" target="_blank" rel="noopener"><span class="m"><span class="w">President Teniente-Matson &middot; SJSU</span><span class="g">Read &#8599;</span></span><span class="t">Named a winner of Agents for Impact &mdash; a record 119 submissions</span></a></li>
+          <li><a class="row" href="https://www.linkedin.com/posts/cynthia-larive-83218a8_big-ideas-take-shape-when-curiosity-meets-activity-7445897567231700992-smfV" target="_blank" rel="noopener"><span class="m"><span class="w">Chancellor Larive &middot; UC Santa Cruz</span><span class="g">Read &#8599;</span></span><span class="t">Featured by the Chancellor</span></a></li>
+          <li><a class="row" href="https://www.linkedin.com/posts/baskinengineering_ai-baskinengineering-activity-7468016590383562753-6CnH" target="_blank" rel="noopener"><span class="m"><span class="w">Baskin Engineering &middot; 2,455 reactions</span><span class="g">Read &#8599;</span></span><span class="t">NVIDIA hackathon winner &mdash; and a conversation with Jensen Huang</span></a></li>
+          <li><a class="row" href="https://news.ucsc.edu/2026/06/agentic-ai-first-uc-santa-cruz-hackathon-with-nvidia-asus/" target="_blank" rel="noopener"><span class="m"><span class="w">UC Santa Cruz News &middot; Jun 2026</span><span class="g">Read &#8599;</span></span><span class="t">Students create agentic AI at first UC Santa Cruz hackathon with NVIDIA, ASUS</span></a></li>
+          <li><a class="row" href="https://www.linkedin.com/posts/preetkaria_nvidiadeveloper-nvidia-nvidiaai-ugcPost-7452955121317060608-27jg/" target="_blank" rel="noopener"><span class="m"><span class="w">NVIDIA Developer Meetup</span><span class="g">Read &#8599;</span></span><span class="t">Presented Loomin to NVIDIA engineers and the developer community</span></a></li>
+          <li><a class="row" href="https://www.linkedin.com/posts/baskinengineering_lahacks2026-lahacks-cloudinary-activity-7458277145992380416-0MiX" target="_blank" rel="noopener"><span class="m"><span class="w">Baskin Engineering &middot; Apr 2026</span><span class="g">Read &#8599;</span></span><span class="t">LA Hacks 2026 &mdash; Cloudinary Developer Track win</span></a></li>
+          <li><a class="row" href="https://patch.com/california/fremont/fremont-high-schoolers-create-award-winning-robotic-waste-sorter" target="_blank" rel="noopener"><span class="m"><span class="w">Patch &middot; Fremont</span><span class="g">Read &#8599;</span></span><span class="t">Fremont High Schoolers Create Award-Winning Robotic Waste Sorter</span></a></li>
+        </ol>
+      </div>
+      <p class="idxnote">Nine wins across eleven hackathons entered. Named publicly by the Chancellor of UC Santa Cruz, the President of San Jos&eacute; State and the Mayor of Fremont.</p>
     </div>
 
-    <div class="lab mn sub"><b>Press</b><span>&mdash;</span></div>
-    <div class="press">
-      <a class="pr" href="https://news.ucsc.edu/2026/04/engineering-student-wins-nvidia-agents-for-impact-hackathon/" target="_blank" rel="noopener">
-        <span class="src">UC Santa Cruz News &middot; 2 Apr 2026</span>
-        <span class="hl">Engineering student wins NVIDIA Agents for Impact Hackathon</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://news.ucsc.edu/2026/06/agentic-ai-first-uc-santa-cruz-hackathon-with-nvidia-asus/" target="_blank" rel="noopener">
-        <span class="src">UC Santa Cruz News &middot; 3 Jun 2026</span>
-        <span class="hl">Students create agentic AI at first UC Santa Cruz hackathon with NVIDIA, ASUS</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://patch.com/california/fremont/fremont-high-schoolers-create-award-winning-robotic-waste-sorter" target="_blank" rel="noopener">
-        <span class="src">Patch &middot; Fremont</span>
-        <span class="hl">Fremont High Schoolers Create Award-Winning Robotic Waste Sorter</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://www.linkedin.com/posts/cynthia-larive-83218a8_big-ideas-take-shape-when-curiosity-meets-activity-7445897567231700992-smfV" target="_blank" rel="noopener">
-        <span class="src">Chancellor Cynthia Larive &middot; UC Santa Cruz</span>
-        <span class="hl">Featured by the Chancellor</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://www.linkedin.com/posts/baskinengineering_ai-baskinengineering-activity-7468016590383562753-6CnH" target="_blank" rel="noopener">
-        <span class="src">Baskin Engineering &middot; 2,455 reactions</span>
-        <span class="hl">NVIDIA hackathon winner &mdash; and a conversation with Jensen Huang</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://www.linkedin.com/posts/baskinengineering_lahacks2026-lahacks-cloudinary-activity-7458277145992380416-0MiX" target="_blank" rel="noopener">
-        <span class="src">Baskin Engineering &middot; Apr 2026</span>
-        <span class="hl">LA Hacks 2026 &mdash; Cloudinary Developer Track win</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://www.linkedin.com/feed/update/urn:li:activity:7450663970769907712/" target="_blank" rel="noopener">
-        <span class="src">President Cynthia Teniente-Matson &middot; San Jos&eacute; State</span>
-        <span class="hl">Named a winner of Agents for Impact &mdash; 119 submissions, a record for NVIDIA</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-      <a class="pr" href="https://www.linkedin.com/posts/preetkaria_nvidiadeveloper-nvidia-nvidiaai-ugcPost-7452955121317060608-27jg/" target="_blank" rel="noopener">
-        <span class="src">NVIDIA Developer Meetup</span>
-        <span class="hl">Presented Loomin to NVIDIA engineers and the developer community</span>
-        <span class="go">Read <s aria-hidden="true">&#8599;</s></span></a>
-    </div>
-
-    <blockquote class="pull">
-      <p>&ldquo;I could see this as something that can be implemented within not just schools, but also industry as well.&rdquo;</p>
-      <cite>Preet Karia, <i>UC Santa Cruz News</i></cite>
+    <!-- movement 3 — somebody else's voice -->
+    <blockquote class="pull" id="pull">
+      <span class="pkick mn">On the winner of NVIDIA&rsquo;s Agents for Impact &mdash; a field of 119</span>
+      <p>This was a solo project by Preet Karia.</p>
+      <a href="https://www.linkedin.com/feed/update/urn:li:activity:7450663970769907712/" target="_blank" rel="noopener">
+        <cite><b>Cynthia Teniente-Matson</b>President &amp; CEO, San Jos&eacute; State University <s aria-hidden="true">&#8599;</s></cite>
+      </a>
     </blockquote>
   </section>
 
@@ -1189,6 +1266,59 @@ const SCROLL={v:0};
   last=y;tick=false;
  };
  onScroll(run);
+})();
+
+/* ── RECOGNITION TALLY — the record, scrubbed one figure at a time ── */
+(()=>{
+ const wrap=$('#tal');if(!wrap)return;
+ const beats=[...wrap.querySelectorAll('.tbt')];
+ const pics=[...wrap.querySelectorAll('.talpic img')];
+ const ticks=[...wrap.querySelectorAll('.taltick i')];
+ const cap=$('.talcap'),now=$('#talnow'),N=beats.length;
+ if(RM){beats.forEach(b=>b.classList.add('on'));
+   beats.forEach(b=>{const i=b.querySelector('i[data-to]');if(i)i.textContent=i.dataset.to});return}
+
+ wrap.style.height=(N*64+100)+'vh';
+ const counted=new Set();let cur=-1;
+
+ const paint=k=>{
+  if(k===cur)return;cur=k;
+  beats.forEach((b,i)=>b.classList.toggle('on',i===k));
+  pics.forEach((p,i)=>p.classList.toggle('on',i===k));
+  ticks.forEach((t,i)=>t.classList.toggle('on',i===k));
+  now.textContent=String(k+1).padStart(2,'0');
+  if(k>0)wrap.classList.add('moved');
+  // caption follows the photo, but only after the cross-fade has taken hold
+  cap.classList.remove('on');
+  clearTimeout(cap._t);cap._t=setTimeout(()=>{
+    cap.innerHTML=pics[k].dataset.cap||'';cap.classList.add('on')},260);
+  // each figure counts up once, the first time it lands
+  const num=beats[k].querySelector('i[data-to]');
+  if(num&&!counted.has(k)){counted.add(k);
+   const to=+num.dataset.to,t0=performance.now(),dur=Math.min(900,220+to*70);
+   const go=t=>{const p=Math.min((t-t0)/dur,1);
+    num.textContent=Math.round(to*(1-Math.pow(1-p,3)));
+    if(p<1)requestAnimationFrame(go)};
+   requestAnimationFrame(go)}
+ };
+
+ onScroll(()=>{
+  const r=wrap.getBoundingClientRect();
+  const top=r.top+scrollY,len=Math.max(1,r.height-innerHeight);
+  const prog=Math.min(Math.max((scrollY-top)/len,0),1);
+  paint(Math.min(N-1,Math.floor(prog*N*0.999)));
+ });
+})();
+
+/* ── THE QUOTE — lands one word at a time ──────────────────────── */
+(()=>{
+ const q=$('#pull');if(!q||RM)return;
+ const p=q.querySelector('p');let i=0;
+ p.innerHTML=p.textContent.split(/(\s+)/).map(x=>
+   x.trim()?`<w style="--i:${i++}">${x}</w>`:x).join('');
+ new IntersectionObserver((e,o)=>e.forEach(x=>{
+   if(x.isIntersecting){q.classList.add('in');o.unobserve(x.target)}
+ }),{rootMargin:'0px 0px -14% 0px'}).observe(q);
 })();
 
 /* ── PER-LETTER REVEALS on labels + big headings ───────────────── */
